@@ -4,22 +4,20 @@
 #include <math.h>
 #include <stdio.h>
 
+// the number is 6 long
+
 int isPalindromic(int i) {
-    char *palindrome, *end;
-    sprintf(palindrome, "%d", i);
+    const int BUF_SIZE = 8;
+    char palindrome[7] = {};
+    snprintf(palindrome, BUF_SIZE-1, "%d", i);
+    char *left = palindrome, *right = palindrome + 5;
 
-    printf("%s\n", palindrome);
-    end = palindrome;
-    while (*end) {
-        end++;
-    }
-    end--;
-
-    while (*palindrome < *end) {
-        if (*palindrome != *end)
+    while (left < right) {
+        if (*left != *right)
         {
             return 0;
         }
+        left++, right--;
     }
     return 1;
 }
@@ -31,11 +29,11 @@ int isPalindromic(int i) {
 int main(void) {
     int i, j, largest = 11111;
     // For every product of two 3-digit numbers
-
     // if palindromic, return it.
 
     for (int j = 999; j > 600; j--) {
         for (int i = 999; i > 600; i--) {
+            // printf("%d", i * j);
             if (i * j > largest && isPalindromic(i * j)) {
                 largest = i * j;
             }
